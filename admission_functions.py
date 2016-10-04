@@ -49,17 +49,13 @@ def get_final_mark(record,coursework_mark,exam_mark):
 def get_both_marks(course_record,course_code):
     """ (str, str) -> str
     
-    >>> desired_course = 'MAT'
     >>> get_both_marks('MAT,90,85','MAT')
     '90 85'
-    >>> desired_course = 'CHM'
-    >>> get_both_marks('MAT,90,85','MAT')
+    >>> get_both_marks('MAT,90,85','CHM')
     ''
     """
     
-    desired_course = input("Enter the course code of the desired course you wish to obtain marks: ")
-    
-    if desired_course == course_code:
+    if course_record[:3] == course_code:
         return course_record[4:6] + ' ' + course_record[7:9]
     else:
         return ''
