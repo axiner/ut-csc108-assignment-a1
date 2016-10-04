@@ -43,6 +43,8 @@ def get_final_mark(record,coursework_mark,exam_mark):
     else:
         return (int(coursework_mark)+int(exam_mark))/2
     
+    
+    
 
 def get_both_marks(course_record,course_code):
     """ (str, str) -> str
@@ -63,6 +65,8 @@ def get_both_marks(course_record,course_code):
         return ''
     
     
+    
+    
 def extract_course(transcript,extracted_course):
     """ (str, int) -> str
     
@@ -79,4 +83,42 @@ def extract_course(transcript,extracted_course):
     else:
         return transcript[20:]
     
+    
+    
+
+def applied_to_degree(record,degree):
+    """ (str,str) -> bool
+    
+    >>> applied_to_degree('Jacqueline Smith,Fort McMurray Composite High,2016,MAT,90,94,ENG,92,88,CHM,80,85,BArts','BArts')
+    True
+    >>> applied_to_degree('Jacqueline Smith,Fort McMurray Composite High,2016,MAT,90,94,ENG,92,88,CHM,80,85,BArts','BCom')
+    False
+    >>> applied_to_degree('Arthur,Fort McMurray Composite High,2016,MAT,90,94,ENG,92,88,CHM,80,85,BCom','Art')
+    False
+    """
+    return degree in record.split(",")[-1].strip()
+
+
+
+
+def decide_admission(student_average,degree_cutoff):
+    """(number,number) -> str
+    
+    >>>decide_admission(80,80)
+    'accept'
+    >>>decide_admission(86,80)
+    'accept with scholarship'
+    >>>decide_admission(76,80)
+    'reject'
+    """
+    
+    if student_average - degree_cutoff >= 5:
+        return 'accept with scholarship'
+    elif student_average < degree_cutoff:
+        return 'reject'
+    else:
+        return 'accept'
+
+
+
     
