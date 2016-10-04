@@ -4,7 +4,6 @@ SPECIAL_CASE_YEAR = '2016'
 
 # Add other constants here
 NO_EXAM = 'NE'
-DESIRED_COURSE = input("Enter the course code of the desired course: ")
 
 def is_special_case(record):
     """ (str) -> bool
@@ -27,6 +26,15 @@ def is_special_case(record):
 # Complete the rest of the functions here
 
 def get_final_mark(record,coursework_mark,exam_mark):
+    """ (str, str, str) -> float
+    
+    >>> get_final_mark('Jacqueline Smith,Fort McMurray Composite High,2016,MAT,90,94,ENG,92,88,CHM,80,85,BArts','90','95')
+    92.5
+    >>> get_final_mark('Jacqueline Smith,Fort McMurray Composite High,2016,MAT,90,94,ENG,92,88,CHM,80,85,BArts','90','NE')
+    90.0
+    >>> get_final_mark('Jacqueline Smith,McDonald High,2014,MAT,90,94,ENG,92,88,CHM,80,85,BArts','90','NE')
+    45.0
+    """
     
     if NO_EXAM in exam_mark and is_special_case:
         return float(coursework_mark)
@@ -37,9 +45,38 @@ def get_final_mark(record,coursework_mark,exam_mark):
     
 
 def get_both_marks(course_record,course_code):
+    """ (str, str) -> str
     
-    if DESIRED_COURSE == course_code:
-        return int
+    >>> desired_course = 'MAT'
+    >>> get_both_marks('MAT,90,85','MAT')
+    '90 85'
+    >>> desired_course = 'CHM'
+    >>> get_both_marks('MAT,90,85','MAT')
+    ''
+    """
+    
+    desired_course = input("Enter the course code of the desired course you wish to obtain marks: ")
+    
+    if desired_course == course_code:
+        return course_record[4:6] + ' ' + course_record[7:9]
+    else:
+        return ''
     
     
+def extract_course(transcript,extracted_course):
+    """ (str, int) -> str
+    
+    >>> extract_course('BIO,90,94,ENG,92,NE,CHM,80,85',1)
+    'BIO,90,94'
+    >>> extract_course('BIO,90,94,ENG,92,NE,CHM,80,85',3)
+    'CHM,80,85'
+    """
 
+    if extracted_course == 1 :
+        return transcript[:9]
+    elif extracted_course == 2:
+        return transcript[10:19]
+    else:
+        return transcript[20:]
+    
+    
